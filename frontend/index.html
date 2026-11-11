@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>AI Resume Analyzer</h1>
+      <p class="tagline">Beat the ATS. Match your resume to any job in seconds.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Input panel -->
+    <section class="card input-card" id="input-panel">
+      <form id="analyze-form">
+        <div class="field">
+          <label>1. Upload your resume</label>
+          <div class="dropzone" id="dropzone" tabindex="0">
+            <input type="file" id="resume-input" accept=".pdf,.docx" hidden />
+            <div class="dropzone-inner">
+              <span class="dz-icon">📄</span>
+              <p class="dz-text">Drag &amp; drop your PDF or DOCX here</p>
+              <p class="dz-sub">or <span class="link">click to browse</span> · max 5&nbsp;MB</p>
+              <p class="dz-file" id="file-name"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="jd-input">2. Paste the job description</label>
+          <textarea id="jd-input" rows="8"
+            placeholder="Paste the full job description here..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="analyze-btn">
+          Analyze My Resume
+        </button>
+        <p class="form-error" id="form-error"></p>
+      </form>
+    </section>
+
+    <!-- Loading -->
+    <section class="loading hidden" id="loading">
+      <div class="spinner"></div>
+      <p id="loading-text">Analyzing your resume…</p>
+    </section>
+
+    <!-- Results -->
+    <section class="results hidden" id="results">
+      <!-- Score hero -->
+      <div class="card score-card">
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 120 120" width="160" height="160">
+            <circle class="ring-bg" cx="60" cy="60" r="52" />
+            <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="score-center">
+            <span class="score-number" id="score-number">0</span>
+            <span class="score-grade" id="score-grade">–</span>
+          </div>
+        </div>
+        <div class="score-detail">
+          <h2 id="score-level">—</h2>
+          <p id="score-recommendation" class="muted"></p>
+          <div class="bars" id="score-bars"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Keywords -->
+        <div class="card">
+          <h3>Keyword Gap Analysis</h3>
+          <p class="muted small">Matched vs. missing job-description terms.</p>
+          <h4 class="matched-label">✓ Matched</h4>
+          <div class="badges" id="matched-badges"></div>
+          <h4 class="missing-label">✗ Missing</h4>
+          <div class="badges" id="missing-badges"></div>
+        </div>
+
+        <!-- Sections -->
+        <div class="card">
+          <h3>Section Completeness</h3>
+          <p class="muted small">Standard resume sections detected.</p>
+          <div class="sections" id="sections-list"></div>
+          <h4>Detected skills</h4>
+          <div class="badges" id="skills-badges"></div>
+        </div>
+      </div>
+
+      <!-- AI feedback -->
+      <div class="card">
+        <h3>Recruiter Feedback <span class="src-tag" id="ai-source"></span></h3>
+        <div class="grid-2">
+          <div>
+            <h4 class="matched-label">Strengths</h4>
+            <ul id="strengths-list" class="feedback-list good"></ul>
+          </div>
+          <div>
+            <h4 class="missing-label">Weaknesses</h4>
+            <ul id="weaknesses-list" class="feedback-list bad"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Improved Summary</h3>
+          <textarea id="improved-summary" rows="6" class="editable"></textarea>
+        </div>
+        <div class="card">
+          <h3>Rewrite Suggestions</h3>
+          <ul id="rewrite-list" class="feedback-list"></ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Skill Gap Roadmap</h3>
+        <div id="roadmap-list"></div>
+      </div>
+
+      <button class="btn-secondary" id="reset-btn">Analyze another resume</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>AI Resume Analyzer · TF-IDF + Claude · Built to spec from the SRS</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

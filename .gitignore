@@ -1,0 +1,24 @@
+# Secrets
+.env
+
+# Confidential project spec (not for the public repo)
+*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Uploads (should never be written, but just in case)
+sample_data/*.tmp
+
+.env
+.env.*
+!.env.example
